@@ -1,15 +1,49 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Home from 'components/home/home'
+import Movie from 'components/movie/movie'
+import Tv from 'components/tv/tv'
+import Variety from 'components/variety/variety'
+import Animation from 'components/animation/animation'
+import Member from 'components/member/member'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    }
+	    {
+	      path: '/',
+	      redirect: '/Home'
+	    },
+	    {
+	      path: '/Home',
+	      name: 'Home',
+	      component: Home
+	    },
+	     {
+	      path: '/Movie',
+	      name: 'Movie',
+	      component: Movie
+	    },
+	     {
+	      path: '/Tv',
+	      name: 'Tv',
+	      component: Tv
+	    },
+	     {
+	      path: '/Animation',
+	      name: 'Animation',
+	      component: Animation
+	    },
+	     {
+	      path: '/Variety',
+	      name: 'Variety',
+	      component: Variety
+	    },
+	    {
+	      path: '/Member',
+	      name: 'Member',
+	      component: Member
+	    }
   ]
 })

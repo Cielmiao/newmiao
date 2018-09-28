@@ -1,0 +1,1 @@
+export const SET_COMMON_LIST = 'SET_COMMON_LIST'

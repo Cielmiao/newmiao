@@ -1,0 +1,1 @@
+export const commonList = state => state.commonList
