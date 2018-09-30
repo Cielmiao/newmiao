@@ -39,7 +39,8 @@ module.exports = {
       'assets': resolve('src/assets'),
       'components': resolve('src/components'),
       'common': resolve('src/common'),
-      'phone': resolve('src/phone')
+      'phone': resolve('src/phone'),
+      'api': resolve('src/api')
     }
   },
   module: {

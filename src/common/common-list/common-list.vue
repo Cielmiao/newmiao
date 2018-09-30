@@ -12,17 +12,16 @@
 							<a href="">{{item.video_name}}</a>
 							<span class="actor_name">{{item.actor_name}}</span>
 						</span>
-					</div>
-					
+					</div>	
 				</li>
 			</ul>
 		</div>
+		<m-pages></m-pages>
 	</div>
 </template>
 <script>
-	import {mapGetters} from 'vuex'
-	export default{
-		
+	import MPages from 'common/m-pages/m-pages'
+	export default{	
 		data(){
 			return{
 				myList:[
@@ -71,10 +70,8 @@
 				]
 			}
 		},
-		computed:{
-		...mapGetters([
-				'commonList'
-			])
+		components:{
+			MPages
 		}
 	}
 </script>

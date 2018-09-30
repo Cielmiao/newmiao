@@ -25,13 +25,13 @@
 					</router-link>
 				</ul>
 			</nav>
-			<div class="header-container-login">
+			<div class="header-container-login" @click="toLogin">
 				<i class="iconfont icon-gerenzhongxin2"></i>
 				<span>立即登录</span>
 			</div>
 			<div class="header-container-search">
 				<input class="search-input" type="text" placeholder="请输入影片关键词">
-				<span class="search-icon">
+				<span class="search-icon" @click="toSearch">
 					<i class="iconfont icon-search"></i>
 				</span>
 			</div>
@@ -41,7 +41,16 @@
 </template>
 
 <script>
-	
+	export default{
+		methods:{
+			toSearch(){
+				this.$router.push('/Search')
+			},
+			toLogin(){
+				this.$router.push('/Login')
+			}
+		}
+	}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
@@ -107,6 +116,9 @@
 					position:absolute
 					right: 6px
 					top: 24px
+					cursor: pointer 
+					&:hover
+						color: $color-theme
 
 	@media (max-width: 992px)
 		.header-container

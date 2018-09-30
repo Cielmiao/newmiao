@@ -1,22 +1,22 @@
 <template>
 	<div class="details-top container"> 
 		<div class="details-top_box">
-			<div class="details-top_item" v-for="item in items">
-				<h3>{{item.title}}</h3>
+			<div class="details-top_item" v-for="item in commonTab">
+				<h3>{{item.name}}</h3>
 				<ul>
-					<li v-for="list in item.list" class="top-list">
-						<a href="">{{list}}</a>
+					<li v-for="list in item.tab" class="top-list">
+						<a href="">{{list.tab}}</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 		<div class="phone-top">
 			<div>
-				<span v-for="(item,index) in items" class="phone-top_item" :class="index == idx ? 'active' : ''" @click='idx = index'>{{item.title}}</span>
+				<span v-for="(item,index) in commonTab" class="phone-top_item" :class="index == idx ? 'active' : ''" @click='idx = index'>{{item.name}}</span>
 			</div>
-			<div v-for="(list,index) in items" class="list-box" v-show="idx == index ? true : false">
+			<div v-for="(list,index) in commonTab" class="list-box" v-show="idx == index ? true : false">
 				<ul>
-					<li v-for="item in list.list" class="phone-list">{{item}}</li>
+					<li v-for="item in list.tab" class="phone-list">{{item.tab}}</li>
 				</ul>
 			</div>
 		</div>
@@ -24,6 +24,12 @@
 </template>
 <script>
 	export default{
+		props:{
+			commonTab:{
+				type:Array,
+				default: []
+			}
+		},
 		data(){
 			return {
 				idx:0,

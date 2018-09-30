@@ -34,8 +34,8 @@
 </template>
 <script>
 	import axios from 'axios'
-	import {getData} from '@/api/getData'
-	import {ERR_OK} from '@/api/config'
+	import {getData} from 'api/getData'
+	import {ERR_OK} from 'api/config'
 	export default{
 		data(){
 			return{
@@ -68,6 +68,7 @@
 
 		},
 		methods:{
+		//获取首页数据
 			getIndexMovie(){
 				let url = 'getIndexMovie'
 				getData(url).then((res)=>{
@@ -168,6 +169,7 @@
 						width: 25%
 	@media (max-width: 767px)
 		.home-list
+			margin-bottom: 50px
 			&_title
 				.title-left
 					margin-left: 5px

@@ -16,6 +16,8 @@
 	</div>
 </template>
 <script>
+import {getData} from 'api/getData'
+import {ERR_OK} from 'api/config'
 import axios from 'axios'
 import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.min.css'
@@ -32,23 +34,19 @@ export default{
 	},
 	methods:{
 		getTopList(){
-			let ERR_OK = 1000
-			let url = 'http://miaoyingshi.com/api/getTopSlider'
-			axios.get(url)
-			.then((res) => {
-				let ret = res.data
-				if (ret.code ===  ERR_OK) {
-					this.swiperSlides = ret.data
-					this.$nextTick(()=>{
-	            	this.initSwiper()
-	            	})
-				}else{
-					return
-				}
-			})
-			.catch((err) => {
-				console.log(error);
-				});			
+			let url = 'getTopSlider'
+				getData(url).then((res)=>{
+					if (res.code === ERR_OK){
+						let _res = res.data
+						this.swiperSlides = _res
+						this.$nextTick(()=>{
+			            	this.initSwiper()
+			            	})	
+					}
+				},(err)=>{
+					console.log(err)
+				})
+					
 	},
 		initSwiper() {
         if (this.swiper != null) return;

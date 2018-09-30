@@ -6,6 +6,8 @@ import Tv from 'components/tv/tv'
 import Variety from 'components/variety/variety'
 import Animation from 'components/animation/animation'
 import Member from 'components/member/member'
+import Search from 'components/search/search'
+import Login from 'components/login/login'
 
 Vue.use(Router)
 
@@ -44,6 +46,16 @@ export default new Router({
 	      path: '/Member',
 	      name: 'Member',
 	      component: Member
+	    },
+	    {
+	      path: '/Search',
+	      name: 'Search',
+	      component: Search
+	    },
+	    {
+	      path: '/Login',
+	      name: 'Login',
+	      component: Login
 	    }
   ]
 })

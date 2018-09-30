@@ -1,1 +1,3 @@
 export const SET_COMMON_LIST = 'SET_COMMON_LIST'
+
+export const SET_COMMON_TAB = 'SET_COMMON_TAB'
