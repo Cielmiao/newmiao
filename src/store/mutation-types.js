@@ -1,3 +1,13 @@
 export const SET_COMMON_LIST = 'SET_COMMON_LIST'
 
 export const SET_COMMON_TAB = 'SET_COMMON_TAB'
+
+export const SET_CURRENT_ONE = 'SET_CURRENT_ONE'
+
+export const SET_CURRENT_TWO = 'SET_CURRENT_TWO'
+
+export const SET_CURRENT_THREE = 'SET_CURRENT_THREE'
+
+export const SET_MAX_PAGE = 'SET_MAX_PAGE'
+
+export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'

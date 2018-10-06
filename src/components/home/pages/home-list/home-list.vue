@@ -102,6 +102,8 @@
 				display: flex
 				flex-direction: row 
 				align-items: center
+				h3
+					font-size: $font-size-medium-x
 				.icon-sty
 					font-size: $font-size-large-xl
 					color: $color-theme
@@ -122,6 +124,7 @@
 					float: left
 					padding: 0 8px
 					margin: 10px 0
+					height: 326px
 					&-box
 						width: 100%
 						
@@ -178,6 +181,7 @@
 				ul 
 					.m-details_items
 						width: 33.333%
+						height: 246px
 						padding: 0 5px
 						&-box
 							.details-items_name
@@ -186,7 +190,13 @@
 								.actor_name
 									display: none
 							.details-items_img
-								height: 220PX
+								height: 210PX
+	@media (max-width: 320px)
+		.home-list
+			&_title
+				.title-left
+					h3
+						font-size: $font-size-medium
 		
 				
 </style>

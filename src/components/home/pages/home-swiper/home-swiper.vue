@@ -74,6 +74,7 @@ export default{
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
 	.home-swiper
+		margin-top: 64px
 		width: 100%
 		height: 0
 		padding-bottom: 23%

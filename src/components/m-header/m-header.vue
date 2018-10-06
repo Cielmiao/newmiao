@@ -56,6 +56,11 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
 	@import "~assets/css/stylus/variable"
 	.header
+		position: fixed
+		top: 0
+		left: 0
+		right: 0
+		z-index: 10
 		width: 100%
 		height: 64px
 		background-color: $color-background
@@ -145,6 +150,13 @@
 					right: 15px
 	@media (max-width: 767px)
 		.header-container
+			position: fixed
+			left: 0
+			right: 0
+			top: 0
+			z-index: 3
+			width: 100%
+			height: 60px
 			padding: 0 10px 0 10px
 			&-logo,&-nav,&-login
 				display: none

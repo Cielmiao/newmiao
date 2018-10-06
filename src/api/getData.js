@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {ERR_OK,apiUrl} from 'api/config'
+import {apiUrl} from 'api/config'
 
 
 export function getData(url){
@@ -15,16 +15,3 @@ export function getData(url){
 	} )
 }
 
-export function getTab(url,tab){
-	getData(url).
-	then((res)=>{
-		if (res.code === ERR_OK){
-		let _res = res.data
-		for(let i=1;i<_res.length-1;i++){
-			tab.push(_res[i])
-			}
-		}
-	},(err)=>{
-		console.log(err)
-	})
-}

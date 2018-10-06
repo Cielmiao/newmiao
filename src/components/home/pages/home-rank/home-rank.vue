@@ -5,16 +5,16 @@
 				<i class="iconfont icon-maozhao"></i>
 				<span>电影排行榜</span>
 			</span>
-			<span class="rank-tab" v-for="(item,index) in movieList" 
+			<span class="rank-tab" v-for="(value,key,index) in movieList" 
 			:class="index === idx ? 'active' : ''" 
 			@click="idx =index">
-				{{item.title}}
+				{{key}}
 			</span>
 		</div>
 		<div>
-			<div class="m-details_box" v-for="(list,index) in movieList" v-show="index===idx?true:false">
+			<div class="m-details_box" v-for="(value,key,index) in movieList" v-show="index===idx?true:false">
 				<ul>
-					<li class="m-details_items" v-for="item in list.details">
+					<li class="m-details_items" v-for="item in value">
 						<div class="m-details_items-box">
 							<div class="details-items_img">
 								<img :src="item.movie_pic">
@@ -24,7 +24,7 @@
 							</div>
 							<span class="details-items_name">
 								<a href="">{{item.movie_name}}</a>
-								<span class="actor_name">{{item.movie_star}}</span>
+								<span class="actor_name">{{item.movie_description}}</span>
 							</span>
 						</div>
 						
@@ -35,24 +35,28 @@
 	</div>
 </template>
 <script>
+	import {getData} from 'api/getData'
+	import {ERR_OK} from 'api/config'
 	export default{
 		data(){
 			return{
 				idx:0,
-				movieList:[
-					{
-						title: "经典榜",
-						details:[1,2]
-					},
-					{
-						title: "热播榜",
-						details:[2,2]
-					},
-					{
-						title: "全球榜",
-						details:[3,2]
+				movieList:{}
+			}
+		},
+		created(){
+			this.getRank()
+		},
+		methods:{
+			getRank(){
+				let url = 'topindex'
+				getData(url).then((res)=>{
+					if(res.code === ERR_OK){
+						this.movieList = res.data
 					}
-				]
+				},(err)=>{
+					console.log(err)
+				})
 			}
 		}
 	}
@@ -67,7 +71,7 @@
 			padding-left: 20px
 			.rank-title
 				font-size: $font-size-medium-x
-				color: #fff
+				color: $color-text
 				i
 					font-size: $font-size-large-x
 					color: $color-theme
@@ -76,6 +80,8 @@
 				border-radius: 5px
 				margin-left: 10px
 				cursor: pointer
+				font-size: $font-size-medium
+				text-align: center
 			.active
 				background-color: #ccc
 				color: $color-theme
@@ -129,4 +135,45 @@
 								color: $color-dialog-text
 							a
 								textOverflow()
+	@media (max-width: 992px)
+
+		.home-rank
+			margin-top: 20px
+			margin-bottom: 10px
+			&_top
+				padding-left: 5px
+				padding-top: 5px
+			.rank-tab
+				padding: 3px 2px
+			.m-details_box
+				ul 
+					.m-details_items
+						width: 25%
+	@media (max-width: 767px)
+		.home-rank
+			&_title
+				.title-left
+					margin-left: 5px
+			.m-details_box
+				padding: 5px 0
+				ul 
+					.m-details_items
+						width: 33.333%
+						padding: 0 5px
+						&-box
+							.details-items_name
+								text-align: center
+								padding: 10px 0
+								.actor_name
+									display: none
+							.details-items_img
+								height: 210PX
+	@media (max-width: 320px)
+		.home-rank
+			&_top
+				.rank-title
+					font-size: $font-size-medium
+				.rank-tab
+					font-size: $font-size-small
+		
 </style>
