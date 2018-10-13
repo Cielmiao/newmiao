@@ -3,25 +3,25 @@
 		<div class="header-container container">
 			<div class="header-container-logo">
 				<a href="">
-					<img src="" alt="">
+					<img :src="logo" alt="">
 				</a>
 			</div>
 			<nav class="header-container-nav">
 				<ul>
 					<router-link tag="li" class="link" to="/Home">
-						<span class="tab-link">首页</span>
+						<span class="tab-link" @click='reload'>首页</span>
 					</router-link>
 					<router-link tag="li" class="link" to="/Movie">
-						<span class="tab-link">电影</span>
+						<span class="tab-link" @click='reload'>电影</span>
 					</router-link>
 					<router-link tag="li" class="link" to="/Tv">
-						<span class="tab-link">电视剧</span>
+						<span class="tab-link" @click='reload'>电视剧</span>
 					</router-link>
 					<router-link tag="li" class="link" to="/Variety">
-						<span class="tab-link">综艺</span>
+						<span class="tab-link" @click='reload'>综艺</span>
 					</router-link>
 					<router-link tag="li" class="link" to="/Member">
-						<span class="tab-link">个人中心</span>
+						<span class="tab-link" @click='reload'>个人中心</span>
 					</router-link>
 				</ul>
 			</nav>
@@ -30,7 +30,7 @@
 				<span>立即登录</span>
 			</div>
 			<div class="header-container-search">
-				<input class="search-input" type="text" placeholder="请输入影片关键词">
+				<input class="search-input" type="text" placeholder="请输入影片关键词" v-model="val">
 				<span class="search-icon" @click="toSearch">
 					<i class="iconfont icon-search"></i>
 				</span>
@@ -41,14 +41,69 @@
 </template>
 
 <script>
+	import {mapGetters,mapMutations} from 'vuex'
+	import {getData} from 'api/getData'
+	import {ERR_OK} from 'api/config'
 	export default{
+		data(){
+			return{
+				val:'',
+				result:[]
+			}
+		},
+		props:{
+			logo:{
+				type:String,
+				default:''
+			}
+		},
+		computed:{
+			...mapGetters([
+					'searchVal'
+				])
+		},
 		methods:{
 			toSearch(){
-				this.$router.push('/Search')
+				this.getSearch()
 			},
 			toLogin(){
 				this.$router.push('/Login')
-			}
+			},
+			//刷新页面
+			reload(){
+				window.location.reload()
+			},
+			//搜索
+			getSearch(){
+				this.setSearchVal(this.val)
+				if(this.val !== ''){
+					this.setAllResult([])
+					this.setNewResult([])
+					let url = 'api/search360'+'?'+'kw='+this.val
+					let _url = 'api/searchcj'+'?'+'kw='+this.val
+					getData(_url).then((res)=>{
+						console.log(GetNetworkTime())
+						if(res.code === ERR_OK){
+							this.setAllResult(res.data)
+						}
+					},(err)=>{
+						console.log(err)
+					})
+					getData(url).then((res)=>{
+						if(res.code === ERR_OK){
+							this.setNewResult(res.data)
+						}
+					},(err)=>{
+						console.log(err)
+					})
+					this.$router.push('/Search')
+				}
+			},
+			...mapMutations({
+				setNewResult:'SET_NEW_RESULT',
+				setAllResult:'SET_ALL_RESULT',
+				setSearchVal:'SET_SEARCH_VAL'
+			})
 		}
 	}
 </script>
@@ -133,6 +188,8 @@
 				width: 30%
 				padding-left: 0
 				padding-right: 10px
+				.search-icon
+					right: 14px
 	@media (max-width: 769px)
 		.header-container
 			font-size: $font-size-small

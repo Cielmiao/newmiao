@@ -7,7 +7,7 @@
 					<h3>{{list.title}}</h3>
 				</span>
 				<span class="title-right">
-					<a href="">更多 ></a>
+					<router-link tag='a' :to='list.router' @click='load'>更多 ></router-link>
 				</span>
 			</div>
 			<div class="m-details_box">
@@ -33,7 +33,6 @@
 	</div>
 </template>
 <script>
-	import axios from 'axios'
 	import {getData} from 'api/getData'
 	import {ERR_OK} from 'api/config'
 	export default{
@@ -43,21 +42,25 @@
 					{
 						icon:'icon-VIP',
 						title: '抢先看',
+						router:'/NewMovie',
 						details: []
 					},
 					{
 						icon:'icon-live',
 						title: '电影',
+						router:'/Movie',
 						details: []
 					},
 					{
 						icon:'icon-tv',
 						title: '电视剧',
+						router:'/Tv',
 						details: []
 					},
 					{
 						icon:'icon-shipin',
 						title: '综艺',
+						router:'/Variety',
 						details: []
 					}
 				]
@@ -70,7 +73,7 @@
 		methods:{
 		//获取首页数据
 			getIndexMovie(){
-				let url = 'getIndexMovie'
+				let url = 'api/getIndexMovie'
 				getData(url).then((res)=>{
 					if (res.code === ERR_OK){
 						let _res = res.data
@@ -84,8 +87,12 @@
 					console.log(err)
 				})
 				
+			},
+			load(){
+			window.location.reload()
 			}
 		}
+
 	}
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
@@ -150,8 +157,7 @@
 									position: absolute
 									left: 1px
 									bottom: -4px			
-						.details-items_name
-							
+						.details-items_name	
 							width: 100%
 							display: flex
 							flex-direction: column
@@ -181,7 +187,7 @@
 				ul 
 					.m-details_items
 						width: 33.333%
-						height: 246px
+						height: 236px
 						padding: 0 5px
 						&-box
 							.details-items_name
@@ -190,7 +196,7 @@
 								.actor_name
 									display: none
 							.details-items_img
-								height: 210PX
+								height: 200PX
 	@media (max-width: 320px)
 		.home-list
 			&_title

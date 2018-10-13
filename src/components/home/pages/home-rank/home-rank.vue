@@ -49,7 +49,7 @@
 		},
 		methods:{
 			getRank(){
-				let url = 'topindex'
+				let url = 'api/topindex'
 				getData(url).then((res)=>{
 					if(res.code === ERR_OK){
 						this.movieList = res.data
@@ -139,7 +139,7 @@
 
 		.home-rank
 			margin-top: 20px
-			margin-bottom: 10px
+			margin-bottom: 0px
 			&_top
 				padding-left: 5px
 				padding-top: 5px
@@ -167,7 +167,7 @@
 								.actor_name
 									display: none
 							.details-items_img
-								height: 210PX
+								height: 200px
 	@media (max-width: 320px)
 		.home-rank
 			&_top

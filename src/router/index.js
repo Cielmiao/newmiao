@@ -4,10 +4,10 @@ import Home from 'components/home/home'
 import Movie from 'components/movie/movie'
 import Tv from 'components/tv/tv'
 import Variety from 'components/variety/variety'
-import Animation from 'components/animation/animation'
 import Member from 'components/member/member'
 import Search from 'components/search/search'
 import Login from 'components/login/login'
+import NewMovie from 'components/new-movie/new-movie'
 
 Vue.use(Router)
 
@@ -33,11 +33,6 @@ export default new Router({
 	      component: Tv
 	    },
 	     {
-	      path: '/Animation',
-	      name: 'Animation',
-	      component: Animation
-	    },
-	     {
 	      path: '/Variety',
 	      name: 'Variety',
 	      component: Variety
@@ -56,6 +51,11 @@ export default new Router({
 	      path: '/Login',
 	      name: 'Login',
 	      component: Login
+	    },
+	    {
+	      path: '/NewMovie',
+	      name: 'NewMovie',
+	      component: NewMovie
 	    }
   ]
 })

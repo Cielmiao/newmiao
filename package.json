@@ -2,7 +2,7 @@
   "name": "newmiao",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "Ciel <492107540@qq.com>",
+  "author": "Ciel",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --host 0.0.0.0 --progress --config build/webpack.dev.conf.js",

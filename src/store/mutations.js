@@ -19,8 +19,17 @@ const mutations = {
     [types.SET_MAX_PAGE](state, page) {
     state.maxPage = page
     },
-     [types.SET_CURRENT_PAGE](state, page) {
+    [types.SET_CURRENT_PAGE](state, page) {
     state.currentPage = page
+    },
+    [types.SET_NEW_RESULT](state, result) {
+    state.newResult = result
+    },
+    [types.SET_ALL_RESULT](state, result) {
+    state.allResult = result
+    },
+    [types.SET_SEARCH_VAL](state, val) {
+    state.searchVal = val
     }
 }
 

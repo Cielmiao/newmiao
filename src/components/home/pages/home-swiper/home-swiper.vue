@@ -18,7 +18,6 @@
 <script>
 import {getData} from 'api/getData'
 import {ERR_OK} from 'api/config'
-import axios from 'axios'
 import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.min.css'
 
@@ -34,7 +33,7 @@ export default{
 	},
 	methods:{
 		getTopList(){
-			let url = 'getTopSlider'
+			let url = 'api/getTopSlider'
 				getData(url).then((res)=>{
 					if (res.code === ERR_OK){
 						let _res = res.data

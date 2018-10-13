@@ -77,7 +77,7 @@
 	.details-top
 		margin-top: 84px
 		margin-bottom: 20px
-		height: 138px
+		height: 160px
 		&_box
 			width: 100%
 		&_item

@@ -18,65 +18,19 @@
 				</li>
 			</ul>
 		</div>
-		<div class="m-pages" ref="page" v-show="maxPage===''?false:true">
-			<ul class="pages">
-				<li @click='prevon()'><</li>
-				<li v-for="item in pages" 
-				@click='toCurrentPage(item)'
-				:class="currentPage === item?'active':''">{{item}}</li>
-				<li @click='nexton()'>></li>
-			</ul>
-		</div>
+		
 	</div>
 </template>
 <script>[]
 
-	import {mapGetters} from 'vuex' 
-	import MPages from 'common/m-pages/m-pages'
+	import {mapGetters} from 'vuex'
+
 	export default{	
-		data(){
-			return{
-				forPage:[]
-			}
-		},
 		computed:{
-		pages(){
-			let max = this.maxPage
-			let cur = this.currentPage
-			let page = []
-			if(max <= 5 & max > 1){
-				for(let i=1;i<=max;i++){
-					page.push(i)
-				}
-			}else{
-				if(cur <= 3){
-					return [1,2,3,4,5,'...',max]
-				}else if(cur >= max-2){
-					return [1,'...',max-4,max-3,max-2,max-1,max]
-				}else{
-					return [1,'...',cur-2,cur-1,cur,cur+1,cur+2,'...',max]
-				}
-			}
-			return page
-		},
-		...mapGetters([
-				'commonList',
-				'maxPage',
-				'currentPage'
+			...mapGetters([
+				'commonList'
 			])
-	    },
-	    methods:{
-	    	//分页
-	    	toCurrentPage(item){
-	    		this.$emit('toCurrentPage',item)
-	    	},
-	    	prevon(){
-	    		this.$emit('prevon')
-	    	},
-	    	nexton(){
-	    		this.$emit('nexton')
-	    	}
-	    }
+		}
 	}
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
@@ -131,48 +85,34 @@
 								font-size: $font-size-small
 								margin-top: 10px
 								color: $color-dialog-text
-		.m-pages
-			width: 306px
-			margin: 0 auto
-			.pages
-				display: flex
-				flex-direction: row 
-				li 
-					background-color: $color-background
-					width: 34px
-					height: 34px
-					border: 1px solid $color-highlight-background 
-					text-align: center
-					line-height: 32px
-					&:hover
-						border: 1px solid $color-theme-d
-						cursor: pointer 
-				.active
-					background-color: $color-theme-d
-
+		
 
 		@media (max-width: 992px)
 			.m-details
 				&_box
 					ul 
 						.m-details_items
-							width: 25%
+							width: 20%
+							height: 290px
+							.details-items_img
+									height: 210px
 		@media (max-width: 767px)
 			.m-details
-				margin-bottom: 60px
 				&_box
 					padding: 5px 0
 					ul 
 						.m-details_items
 							width: 33.333%
+							height: 236px
 							&-box
 								.details-items_name
 									text-align: center
 									padding: 10px 0
+									
 									.actor_name
 										display: none
 								.details-items_img
-									height: 210px
+									height: 200px
 
 
 				

@@ -11,3 +11,9 @@ export const SET_CURRENT_THREE = 'SET_CURRENT_THREE'
 export const SET_MAX_PAGE = 'SET_MAX_PAGE'
 
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+
+export const SET_NEW_RESULT = 'SET_NEW_RESULT'
+
+export const SET_ALL_RESULT = 'SET_ALL_RESULT'
+
+export const SET_SEARCH_VAL = 'SET_SEARCH_VAL'

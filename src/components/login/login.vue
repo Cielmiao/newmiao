@@ -12,14 +12,16 @@
 			<form action="">
 				<div class="login-input login-name">
 					<label for="loginName">账号</label>
-					<input type="text" id="loginName" placeholder="请输入手机号登录">
+					<input type="text" id="loginName" placeholder="请输入用户名或手机号">
 				</div>
 				<div class="login-input login-password">
 					<label for="loginPassword">密码</label>
 					<input type="text" id="loginPassword" placeholder="请输入密码">
 				</div>
 				<div class="login-input">
-					<span class="remember"></span>
+					<span class="remember" @click="rememberPass">
+						<i class="iconfont icon-10" v-show="remember" ></i>
+					</span>
 					<i class="remember-txt">记住密码</i>
 				</div>
 				<div class="login-input">
@@ -39,14 +41,22 @@
 				<i class="iconfont icon-gerenzhongxin"></i>
 				<span>账号注册</span>
 			</div>
-			<div class="login-prompt">
+			<div class="login-prompt old-prompt" v-show='oldPromptShow'>
 				<i class="iconfont icon-maozhao"></i>
-				<span>温馨提示：手机号将作为登录账号使用哦~</span>
+				<span>温馨提示：手机号也可以直接登录哦~</span>
+			</div>
+			<div class="login-prompt new-prompt" v-show='newPromptShow'>
+				<i class="iconfont icon-tishi1"></i>
+				<span>{{prompt}}</span>
 			</div>
 			<form action="">
 				<div class="login-input login-name">
-					<label for="loginName">手机号</label>
-					<input type="text" id="loginName" placeholder="请输入手机号登录">
+					<label for="loginName">用户名</label>
+					<input type="text" id="loginName" placeholder="请输入6-30位字母、数字或'_'" v-model='usernames' @blur='username'>
+				</div>
+				<div class="login-input login-name">
+					<label for="loginTel">手机号</label>
+					<input type="text" id="loginTel" placeholder="请输入手机号">
 				</div>
 				<div class="login-input login-password">
 					<label for="loginPassword">密码</label>
@@ -74,7 +84,12 @@
 		data(){
 			return{
 				loginShow:true,
-				registerShow:false
+				registerShow:false,
+				remember:false,
+				usernames:'',
+				prompt:'',
+				oldPromptShow:true,
+				newPromptShow:false
 			}
 		},
 		methods:{
@@ -85,6 +100,20 @@
 			toLogin(){
 				this.loginShow = true
 				this.registerShow = false
+			},
+			rememberPass(){
+				this.remember = !this.remember
+			},
+			username(){
+				if(this.usernames === ''){
+					let txt = "请输入6-30位字母、数字或'_'"
+					this.changeTxt(txt)
+				}
+			},
+			changeTxt(txt){
+				this.oldPromptShow = false
+				this.newPromptShow = true
+				this.prompt = txt
 			}
 		}
 	}
@@ -127,6 +156,10 @@
 				background-color: #FFFBED
 				padding: 8px 4px
 				font-size: $font-size-small
+			.new-prompt
+				border: 1px solid #f2423f
+				background-color: #ffebeb
+				color: #f5605d
 			.login-input
 				margin-top: 20px
 				.remember
@@ -134,6 +167,12 @@
 					width: 12px
 					height: 12px
 					border: 1px solid #ccc
+					position: relative
+					.icon-10
+						position: absolute
+						top: -2px
+						left: -2px
+						color: $color-theme
 					&-txt
 						font-size: $font-size-small
 			.login-name,.login-password
@@ -162,7 +201,7 @@
 					&:hover
 						background-color: $color-theme
 						cursor: pointer
-				#loginName,#loginPassword
+				#loginName,#loginPassword,#loginTel
 					width: 230px
 					height: 25px
 					border-radius: 5px

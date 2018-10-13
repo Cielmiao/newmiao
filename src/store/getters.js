@@ -12,3 +12,9 @@ export const currentThree = state => state.currentThree
 export const maxPage = state => state.maxPage
 
 export const currentPage = state => state.currentPage
+
+export const newResult = state => state.newResult
+
+export const allResult = state => state.allResult
+
+export const searchVal = state => state.searchVal

@@ -3,9 +3,11 @@
 		<details-top @toTabOne = 'toTabOne' 
 		@toTabTwo = 'toTabTwo' 
 		@toTabThree = 'toTabThree'></details-top>
-		<common-list @toCurrentPage='toCurrentPage'
+		<common-list ></common-list>
+		<common-page @toCurrentPage='toCurrentPage'
 		@prevon='prevon'
-		@nexton='nexton'></common-list>
+		@nexton='nexton'></common-page>
+
 	</div>
 </template>
 <script>
@@ -15,6 +17,7 @@
 	import {ERR_OK} from 'api/config'
 	import DetailsTop from 'common/details-top/details-top'
 	import CommonList from 'common/common-list/common-list'
+	import CommonPage from 'common/common-page/common-page'
 	export default{
 		data(){
 			return{
@@ -25,7 +28,8 @@
 		},
 		components:{
 			DetailsTop,
-			CommonList
+			CommonList,
+			CommonPage
 		},
 		computed:{
 		...mapGetters([
@@ -46,13 +50,13 @@
 		},
 		methods:{
 			getMovieTab(){
-				let url = 'getMovietab'
+				let url = 'api/getMovietab'
 				//获取分类数据
 				getCommonTab(url,this.movieTab)
 			},
 			getMovieList(){
 				let curPage = 'pageno='+this.currentPage
-				let _url = 'getMovies'+'?'+this.currentOne+'&'+this.currentTwo+'&'+this.currentThree+'&'+curPage
+				let _url = 'api/getMovies'+'?'+this.currentOne+'&'+this.currentTwo+'&'+this.currentThree+'&'+curPage
 				getData(_url).
 				then((res)=>{
 					if (res.code === ERR_OK){
@@ -68,14 +72,17 @@
 			},
 			toTabOne(list){
 				this.setCurrentOne(list.param)
+				this.setCurrentPage(1)
 				this.getMovieList()
 			},
 			toTabTwo(list){
 				this.setCurrentTwo(list.param)
+				this.setCurrentPage(1)
 				this.getMovieList()
 			},
 			toTabThree(list){
 				this.setCurrentThree(list.param)
+				this.setCurrentPage(1)
 				this.getMovieList()
 			},
 			//分页
@@ -84,6 +91,7 @@
 				if (typeof item == 'string') return
 				this.setCurrentPage(item)
 				this.getMovieList()
+				window.scrollTo(0,0)
 			},
 			//上一页
 			prevon(){
@@ -95,6 +103,7 @@
 					this.setCurrentPage(this.maxPage)
 				}
 				this.getMovieList()
+				window.scrollTo(0,0)
 			},
 			//下一页
 			nexton(){
@@ -106,6 +115,7 @@
 					this.setCurrentPage(this.maxPage)
 				}
 				this.getMovieList()
+				window.scrollTo(0,0)
 			},
 			...mapMutations({
 				setMovieTab:'SET_COMMON_TAB',
