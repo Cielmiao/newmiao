@@ -3,7 +3,7 @@
 		<div class="header-container container">
 			<div class="header-container-logo">
 				<a href="">
-					<img :src="logo" alt="">
+					<img src="../../assets/image/logo.png" alt="">
 				</a>
 			</div>
 			<nav class="header-container-nav">
@@ -125,7 +125,6 @@
 				width: 	10%
 				height: 100%
 				float: left
-				background-color: #fff
 			&-nav
 				width: 40%
 				float: left

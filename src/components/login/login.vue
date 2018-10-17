@@ -52,22 +52,23 @@
 			<form action="">
 				<div class="login-input login-name">
 					<label for="loginName">用户名</label>
-					<input type="text" id="loginName" placeholder="请输入6-30位字母、数字或'_'" v-model='usernames' @blur='username'>
+					<input type="text" id="loginName" placeholder="请输入6-30位字母、数字或'_'" v-model='username' @blur='_username'>
 				</div>
 				<div class="login-input login-name">
 					<label for="loginTel">手机号</label>
-					<input type="text" id="loginTel" placeholder="请输入手机号">
+					<input type="text" id="loginTel" placeholder="请输入手机号" v-model='telPhone' @blur='_telPhone'>
 				</div>
 				<div class="login-input login-password">
 					<label for="loginPassword">密码</label>
-					<input type="text" id="loginPassword" placeholder="请输入6-18位密码，字母/数字/符号">
+					<input type="password" name="password" id="loginPassword" placeholder="请输入6-18位密码，字母/数字/符号" v-model="passWord" @blur="_passWord">
 				</div>
 				<div class="login-input login-password">
-					<input type="text"  placeholder="请输入短信验证码" class="test">
-					<span class="test-btn">获取验证码</span>
+					<input type="text"  placeholder="请输入短信验证码" class="test" v-model='testCode' @blur="_testCode">
+					<span class="test-btn" @click="sendcode">{{codes}}</span>
+					<span class="zhezhao" ref='zhezhao'></span>
 				</div>
 				
-				<div class="login-input">
+				<div class="login-input" @click='register'>
 					<span class="login-btn">立即注册</span>
 				</div>
 				<div class="login-input text">
@@ -80,16 +81,28 @@
 	</div>
 </template>
 <script>
+	import axios from 'axios'
+	import {ERR_OK} from 'api/config'
+	import {getData} from 'api/getData'
+
 	export default{
 		data(){
 			return{
 				loginShow:true,
 				registerShow:false,
 				remember:false,
-				usernames:'',
+				username:'',
+				telPhone:'',
+				passWord:'',
+				testCode:'',
 				prompt:'',
 				oldPromptShow:true,
-				newPromptShow:false
+				newPromptShow:false,
+				codes:'获取验证码',
+				usernames:false,
+				telPhones:false,
+				passWords:false,
+				testCodes:false
 			}
 		},
 		methods:{
@@ -104,17 +117,118 @@
 			rememberPass(){
 				this.remember = !this.remember
 			},
-			username(){
-				if(this.usernames === ''){
+			//判断用户名
+			_username(){
+				let pattern = /\w{5,30}/
+				if(this.username === '' || !pattern.test(this.username)){
 					let txt = "请输入6-30位字母、数字或'_'"
-					this.changeTxt(txt)
+					this.changeFalse(txt)
+				}else{
+					this.changeTrue()
+					this.usernames = true
 				}
 			},
-			changeTxt(txt){
+			//判断手机号
+			_telPhone(){
+				let pattern = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
+				if(this.telPhone === '' || !pattern.test(this.telPhone)){
+					let txt = "请输入有效的手机号码"
+					this.changeFalse(txt)
+				}else{
+					this.changeTrue()
+					this.telPhones = true
+				}
+			},
+			//判断密码
+			_passWord(){
+				let pattern = /\S{6,18}/
+				if(this.passWord === '' || !pattern.test(this.passWord)){
+					let txt = "请输入6-18位字母、数字或符号"
+					this.changeFalse(txt)
+				}else{
+					this.changeTrue()
+					this.passWords = true
+				}
+			},
+			//判断验证码
+			_testCode(){
+				let pattern = /^\d{4}$/
+				if(this.testCode === '' || !pattern.test(this.testCode)){
+					let txt = "请输入正确的验证码"
+					this.changeFalse(txt)
+				}else{
+					this.changeTrue()
+					this.testCodes = true
+				}
+			},
+			changeFalse(txt){
 				this.oldPromptShow = false
 				this.newPromptShow = true
 				this.prompt = txt
+			},
+			changeTrue(){
+				this.oldPromptShow = true
+				this.newPromptShow = false
+			},
+			//发送验证码
+			sendcode(){
+				let pattern = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
+				if(this.telPhone === '' || !pattern.test(this.telPhone)){
+					let txt = '请输入有效的手机号码'
+					this.changeFalse(txt)
+				}else{
+					this.changeTrue()
+					let code = 'api/user/sendcode'+'?tel='+this.telPhone
+					getData(code).then((res)=>{
+						if(res.code === ERR_OK){
+							let leftTime = 60
+							let timer = setInterval(()=>{
+								this.codes = leftTime+'秒后可重发'
+								leftTime--
+								this.$refs.zhezhao.style.display = 'block'
+								if(leftTime === 0){
+									clearInterval(timer)
+									this.codes = '重新获取'
+									this.$refs.zhezhao.style.display = 'none'
+								}
+							},1000)
+						}else{
+							this.codes = '重新获取'
+						}
+					},(err)=>{
+						console.log(err)
+					})
+				}
+				
+			},
+			//注册
+			register(){
+				if(this.usernames && this.telPhones && this.passWords && this.testCodes){
+					let url = "http://miaoyingshi.com/api/user/regist"
+					let fd = new FormData()
+					fd.append("username",this.username)
+					fd.append("password",this.password)
+					fd.append("tel",this.telPhone)
+					fd.append("code",this.testCode)
+
+					axios.post(url,fd).then((res)=>{
+						console.log(res)
+					})
+				}else{
+					if(!this.usernames){
+						this._username()
+					}else if(!this.telPhones){
+						this._telPhone()
+					}else if(!this.passWords){
+						this._passWord()
+					}else if(!this.testCodes){
+						this._testCode()
+					}
+				}
+				
+
 			}
+
 		}
 	}
 </script>
@@ -189,6 +303,14 @@
 					outline: none
 					&:hover
 						border-color: $color-theme
+				.zhezhao
+					position: absolute
+					background-color: red
+					width: 100px
+					height: 27px
+					right: 30px
+					display: none
+					opacity: 0
 				.test-btn
 					width: 100px
 					height: 27px

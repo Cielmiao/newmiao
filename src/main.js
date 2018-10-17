@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import axios from 'axios'
 
 //vuex
 import store from './store'
@@ -17,6 +16,13 @@ FastClick.attach(document.body);
 import 'assets/css/stylus/reset.styl'
 //字体图标
 import 'assets/css/icon/iconfont.css'
+
+/*import VueLazyLoad from 'vue-lazyload'
+
+Vue.use(VueLazyLoad,{
+    error:'./src/assets/image/lazy.png',
+    loading:'./src/assets/image/lazy.png'
+})*/
 
 Vue.config.productionTip = false
 

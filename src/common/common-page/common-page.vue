@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<div class="m-pages" ref="page" v-show="maxPage===''?false:true">
+		<div class="m-pages" ref="page" v-if="maxPage">
 			<ul class="pages" :style="{width:(pages.length+2)*34+'px'}">
 				<li @click='prevon()'><</li>
 				<li v-for="item in pages" 
